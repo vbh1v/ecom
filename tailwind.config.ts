@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss"
 
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 const config = {
   darkMode: ["class"],
   content: [
@@ -18,6 +20,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        cormorant: ['var(--font-cormorant)', ...fontFamily.sans], // <--------- 👈
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
