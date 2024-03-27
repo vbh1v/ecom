@@ -1,100 +1,149 @@
-"use client"
+"use client";
 
-import Image from 'next/image'
-import Link from "next/link"
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
-import React from 'react';
-
-
-const Logo = () => {
-    return (
-        <div className="flex items-center">
-        <Image 
-          src='/logo.svg'
-          width={40}
-          height={40}
-          alt="Logo"
-        />
-      </div>
-    );
-  };
-
-
-        
- 
-
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import React from "react";
 
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    NavigationMenuViewport,
-  } from "@/components/ui/navigation-menu"
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command";
 
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
-  
+const Logo = () => {
+  return (
+    <div className="flex flex-grow justify-center border-2 border-black">
+      <Image src="/logo.svg" width={40} height={40} alt="Logo" />
+    </div>
+  );
+};
+
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { Icons } from "./icons";
 
 const Navbar: React.FC = () => {
+  const menuList = [
+    {
+      group: "Shop",
+      items: [
+        {
+          link: "/",
+          text: "Tshirt",
+        },
+        {
+          link: "/",
+          text: "Hoodies",
+        },
+      ],
+    },
+    {
+      group: "About Us",
+      items: [
+        {
+          link: "/",
+          text: "Our Story",
+        },
+        {
+          link: "/",
+          text: "Contact",
+        },
+      ],
+    },
+  ];
 
   return (
-    <header className='sticky top-0 bg-background z-10 shadow-sm'>
-      <div className="flex p-2 justify-evenly">
-    <NavigationMenu>
-        <NavigationMenuList>
-            <NavigationMenuItem>
-                <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <NavigationMenuLink>Tshirt</NavigationMenuLink>
-                    </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-                <NavigationMenuTrigger>About Us</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <NavigationMenuLink>About</NavigationMenuLink>
-                    </NavigationMenuContent>
-            </NavigationMenuItem>
-        </NavigationMenuList>
-    </NavigationMenu>
+    <header className="flex sticky top-0 bg-background z-10 shadow-sm border-2 border-black justify-center">
+      <NavigationMenu className="flex border-2 border-black">
+        <Drawer direction={"left"}>
+          <DrawerTrigger asChild>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <Icons.hamburger />
+            </NavigationMenuLink>
+          </DrawerTrigger>
+          <DrawerContent className="h-full w-[85%]">
+            <DrawerHeader className="text-left">
+              <DrawerTitle>
+                <DrawerTrigger asChild>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <Icons.cross />
+                  </NavigationMenuLink>
+                </DrawerTrigger>
+              </DrawerTitle>
+            </DrawerHeader>
+            <ScrollArea className="overflow-auto p-4 break-all">
+              <Command>
+                <CommandList>
+                  {menuList.map((menu: any, key: number) => (
+                    <CommandGroup key={key} heading={menu.group}>
+                      {menu.items.map((option: any, optionKey: number)=> <CommandItem key={optionKey}>{option.text}</CommandItem>)}
+                    </CommandGroup>
+                  ))}
+                </CommandList>
+              </Command>
+            </ScrollArea>
+            <DrawerFooter className="pt-2">
+              <p className="text-sm italic">
+                Thank you for <strong>diligently</strong> double checking!
+              </p>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </NavigationMenu>
 
-    <Logo/>
-    <NavigationMenu>
+      <Logo />
+
+      <div className="flex border-2 border-black">
+        <NavigationMenu>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <Image 
-                        src='/search.svg'
-                        width={20}
-                        height={20}
-                        alt="search-icon"
-                    />
+              <Icons.search />
             </NavigationMenuLink>
           </Link>
+          <div className="hidden md:flex">
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <Icons.person />
+              </NavigationMenuLink>
+            </Link>
+          </div>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <Image 
-                        src='/account.svg'
-                        width={20}
-                        height={20}
-                        alt="account-icon"
-                    />
+              <Icons.shoppingbag />
             </NavigationMenuLink>
           </Link>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <Image 
-                        src='/shopping-bag.svg'
-                        width={20}
-                        height={20}
-                        alt="shopping_bag-icon"
-                    />
-            </NavigationMenuLink>
-          </Link>
-    </NavigationMenu>
-  </div>
+        </NavigationMenu>
+      </div>
     </header>
   );
 };

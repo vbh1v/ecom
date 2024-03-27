@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator"
 import Body from "@/components/Body";
 import { Cormorant } from 'next/font/google'
+import Announcement from "@/components/Announcement";
 
 const cormorant = Cormorant({
   subsets: ['latin'],
@@ -13,6 +14,7 @@ const cormorant = Cormorant({
 export default function Home() {
   return (
     <main className={`${cormorant.variable}`}>
+      <Announcement/>
       <Navbar/>
       <Separator/>
       <Body/>
