@@ -35,7 +35,7 @@ import { Button } from "@/components/ui/button";
 
 const Logo = () => {
   return (
-    <div className="flex flex-grow justify-center border-2 border-black">
+    <div className="flex flex-grow justify-center">
       <Image src="/logo.svg" width={40} height={40} alt="Logo" />
     </div>
   );
@@ -57,6 +57,10 @@ const Navbar: React.FC = () => {
     {
       group: "Shop",
       items: [
+        {
+          link: "/",
+          text: "All products",
+        },
         {
           link: "/",
           text: "Tshirt",
@@ -83,8 +87,8 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="flex sticky top-0 bg-background z-10 shadow-sm border-2 border-black justify-center">
-      <NavigationMenu className="flex border-2 border-black">
+    <header className="flex sticky top-0 bg-background z-10 shadow-sm justify-center">
+      <NavigationMenu className="flex">
         <Drawer direction={"left"}>
           <DrawerTrigger asChild>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -123,7 +127,7 @@ const Navbar: React.FC = () => {
 
       <Logo />
 
-      <div className="flex border-2 border-black">
+      <div className="flex">
         <NavigationMenu>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
