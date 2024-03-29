@@ -1,5 +1,6 @@
 "use client";
 
+import Newest from "@/components/Newest";
 import { Label } from "@radix-ui/react-label";
 import Image from "next/image";
 
@@ -30,6 +31,7 @@ export default function Home() {
         />
         <Label className="font-cormorant">Tshirt</Label>
       </div>
+      <Newest/>
     </main>
   );
 }
