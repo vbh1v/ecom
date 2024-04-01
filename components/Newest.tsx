@@ -24,15 +24,15 @@ export default async function Newest() {
   //   console.log(data);
 
   return (
-    <div className="flex flex-col border-black border-2 font-cormorant">
+    <div className="flex flex-col font-cormorant">
       <div className="p-4">
         <Label className="text-4xl">New Arrivals</Label>
       </div>
 
-      <div className="flex border-2">
+      <div className="flex">
         {data.map((product) => (
           <div key={product._id} className="flex flex-col items-center">
-            <div className="border-2 border-black">
+            <div className="bg-gray">
               <Image
                 src={product.imageUrl}
                 alt="product image"
@@ -40,10 +40,11 @@ export default async function Newest() {
                 height={300}
               ></Image>
             </div>
-            <div>
+            <div className="flex flex-col items-center">
               <Link href={`/product/${product.slug}`}>
-                <Label className="text-xs">{product.name}</Label>
+                <h2 className="text-xs">{product.name}</h2>
               </Link>
+              <p>₹ {product.price}</p>
             </div>
           </div>
         ))}
