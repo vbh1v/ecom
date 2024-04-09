@@ -1,12 +1,12 @@
 import { fullProduct } from "@/app/interface";
 import { client } from "@/app/lib/sanity";
+import AddToBag from "@/components/AddToBag";
 import ImageGallery from "@/components/ImageGallery";
 import { Button } from "@/components/ui/button";
-import { Truck } from 'lucide-react';
-
+import { Truck } from "lucide-react";
 
 async function getData(slug: string) {
-  const query = `*[_type == 'product' && slug.current == "${slug}"][0]{
+  const query = `*[_type == 'product' && slug.current == "siesta-tshirt-cedar-brown"][0]{
     _id,
       images,
       price,
@@ -48,19 +48,32 @@ export default async function ProductPage({
             </div>
             <div className="mb-4">
               <div className="flex items-end gap-2">
-                <span className="text-xl font-bold text-gray-800 md:text-2xl">₹{data.price}</span>
+                <span className="text-xl font-bold text-gray-800 md:text-2xl">
+                  ₹{data.price}
+                </span>
               </div>
-              <span className="text-sm text-gray-500">Inclusive of GST and shipping.</span>
+              <span className="text-sm text-gray-500">
+                Inclusive of GST and shipping.
+              </span>
             </div>
             <div className="mb-6 flex items-center gap text-gray-500">
-              <Truck/>
+              <Truck />
               <span className="p-2">2-4 days of shipping</span>
             </div>
             <div className="flex gap-2.5">
-              <Button>Add To Cart</Button>
+              <AddToBag
+                currency="INR"
+                description={data.description}
+                image={data.images[0]}
+                name={data.name}
+                price={data.price}
+                key={data._id}
+              />
               <Button variant={"secondary"}>Checkout Now</Button>
             </div>
-            <p className="mt-12 text-base text-gray-500 tracking-wide">{data.description}</p>
+            <p className="mt-12 text-base text-gray-500 tracking-wide">
+              {data.description}
+            </p>
           </div>
         </div>
       </div>

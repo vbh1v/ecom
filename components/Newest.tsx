@@ -1,3 +1,4 @@
+"use client"
 import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/app/lib/sanity";
 import product from "@/sanity/schemaTypes/product";

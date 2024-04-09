@@ -2,16 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import React from "react";
 
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -19,19 +15,12 @@ import {
 
 import {
   Command,
-  CommandDialog,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
 
 const Logo = () => {
   return (
@@ -43,16 +32,13 @@ const Logo = () => {
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
   NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Icons } from "./icons";
+import { useShoppingCart } from "use-shopping-cart";
 
 const Navbar: React.FC = () => {
+  const { handleCartClick } = useShoppingCart();
   const menuList = [
     {
       group: "Shop",
@@ -110,17 +96,14 @@ const Navbar: React.FC = () => {
                 <CommandList>
                   {menuList.map((menu: any, key: number) => (
                     <CommandGroup key={key} heading={menu.group}>
-                      {menu.items.map((option: any, optionKey: number)=> <CommandItem key={optionKey}>{option.text}</CommandItem>)}
+                      {menu.items.map((option: any, optionKey: number) => (
+                        <CommandItem key={optionKey}>{option.text}</CommandItem>
+                      ))}
                     </CommandGroup>
                   ))}
                 </CommandList>
               </Command>
             </ScrollArea>
-            <DrawerFooter className="pt-2">
-              <p className="text-sm italic">
-                Thank you for <strong>diligently</strong> double checking!
-              </p>
-            </DrawerFooter>
           </DrawerContent>
         </Drawer>
       </NavigationMenu>
@@ -141,11 +124,12 @@ const Navbar: React.FC = () => {
               </NavigationMenuLink>
             </Link>
           </div>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <Icons.shoppingbag />
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink
+            onClick={() => handleCartClick()}
+            className={navigationMenuTriggerStyle()}
+          >
+            <Icons.shoppingbag />
+          </NavigationMenuLink>
         </NavigationMenu>
       </div>
     </header>
