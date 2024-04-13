@@ -1,6 +1,6 @@
 "use client";
 
-import { urlFor } from "@/app/lib/sanity";
+
 import { Button } from "@/components/ui/button";
 import { useShoppingCart } from "use-shopping-cart";
 
@@ -20,7 +20,7 @@ export default function AddToBag({currency, description, image, name, price}: Pr
     description: description,
     price: price,
     currency: currency,
-    image: urlFor(image).url(),
+    image: "urlFor(image).url()",
     id:"jsaksj",
   }
   return <Button onClick={() => {

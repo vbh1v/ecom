@@ -1,10 +1,25 @@
-"use client";
-
 import Newest from "@/components/Newest";
-import { Label } from "@radix-ui/react-label";
+import { Label } from "@/components/ui/label"
 import Image from "next/image";
+import axios from "axios";
+import { simplifiedProduct } from "@/app/interface";
 
-export default function Home() {
+export async function getData() {
+  try {
+    const response = await axios.get("http://localhost:3002/product");
+    return response;
+    
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+export default async function Home() {
+const res = await getData()
+const data = res.data;
+console.log(data)
+
   return (
     <main className="flex-col">
       <div className="p-4">
@@ -31,7 +46,8 @@ export default function Home() {
         />
         <Label className="font-cormorant">Tshirt</Label>
       </div>
-      <Newest/>
+      <h1 className="text-xl">{data[0].id}</h1>
+      <Newest data={data}/>
     </main>
   );
 }

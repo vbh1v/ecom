@@ -1,0 +1,49 @@
+{
+    "categories": [
+      {
+        "name": "Tshirts"
+      },
+      {
+        "name": "Hoodies"
+      }
+    ],
+    "product": [
+      {
+        "id": 1,
+        "name": "Siesta T-shirt Cedar Brown",
+        "price": 19.99,
+        "description": "Description of Siesta T-shirt Cedar Brown",
+        "category": "Tshirts",
+        "slug": "siesta-t-shirt-cedar-brown",
+        "imageURL": "https://prxkhxr.com/cdn/shop/files/39.jpg?v=1711208106&width=600"
+      },
+      {
+        "id": 2,
+        "name": "Siesta T-shirt Forest Green",
+        "price": 29.99,
+        "description": "Description of Siesta T-shirt Forest Green",
+        "category": "Tshirts",
+        "slug": "siesta-t-shirt-forest-green",
+        "imageURL": "https://prxkhxr.com/cdn/shop/files/19_8b467937-14f5-461c-bb21-1b4423b2d2e3.jpg?v=1711208133&width=600"
+      },
+      {
+        "id": 3,
+        "name": "Loose Fit Hoodie Black",
+        "price": 9.99,
+        "description": "Description of Loose Fit Hoodie Black",
+        "category": "Hoodies",
+        "slug": "loose-fit-hoodie-black",
+        "imageURL": "https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F03%2F01%2F0301bf0870654592fb7e9a10f7d6bcae10f36621.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bmen_hoodiessweatshirts_hoodies%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/fullscreen]"
+      },
+      {
+        "id": 4,
+        "name": "Loose Fit Hoodie White",
+        "price": 9.99,
+        "description": "Description of Loose Fit Hoodie White",
+        "category": "Hoodies",
+        "slug": "loose-fit-hoodie-white",
+        "imageURL": "https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F03%2F01%2F0301bf0870654592fb7e9a10f7d6bcae10f36621.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bmen_hoodiessweatshirts_hoodies%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/fullscreen]"
+      }
+    ]
+  }
+  
