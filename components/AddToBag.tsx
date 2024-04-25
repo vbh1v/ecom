@@ -1,29 +1,29 @@
 "use client";
 
-
+import { fullProduct, newProduct } from "@/app/interface";
 import { Button } from "@/components/ui/button";
-import { useShoppingCart } from "use-shopping-cart";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
-export interface ProductCart {
-  name: string;
-  description: string;
-  price: number;
-  currency: string;
-  image: any;
-}
+export default function AddToBag({
+  description,
+  imageURL,
+  name,
+  price,
+  id,
+}: newProduct) {
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart();
 
-export default function AddToBag({currency, description, image, name, price}: ProductCart) {
-  const { addItem, handleCartClick } = useShoppingCart();
-
-  const product ={
+  const product = {
     name: name,
     description: description,
     price: price,
-    currency: currency,
-    image: "urlFor(image).url()",
-    id:"jsaksj",
-  }
-  return <Button onClick={() => {
-    addItem(product), handleCartClick();
-  }}>Add to Cart</Button>;
+    imageURL: imageURL,
+    id: id,
+  };
+  return <Button onClick={() => increaseCartQuantity(id)}>Add to Cart</Button>;
 }

@@ -1,14 +1,12 @@
 import Newest from "@/components/Newest";
-import { Label } from "@/components/ui/label"
+import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import axios from "axios";
-import { simplifiedProduct } from "@/app/interface";
 
 export async function getData() {
   try {
     const response = await axios.get("http://localhost:3002/product");
     return response;
-    
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
@@ -16,9 +14,9 @@ export async function getData() {
 }
 
 export default async function Home() {
-const res = await getData()
-const data = res.data;
-console.log(data)
+  const res = await getData();
+  const data = res?.data;
+  console.log(data);
 
   return (
     <main className="flex-col">
@@ -46,8 +44,7 @@ console.log(data)
         />
         <Label className="font-cormorant">Tshirt</Label>
       </div>
-      <h1 className="text-xl">{data[0].id}</h1>
-      <Newest data={data}/>
+      <Newest data={data} />
     </main>
   );
 }

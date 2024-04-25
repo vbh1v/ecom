@@ -7,8 +7,8 @@ import { Separator } from "@/components/ui/separator"
 
 const Footer: React.FC = () => {
   return <div>
-  <div className="p-2 flex flex-col border-2 border-black items-center">
-  <Label className=" text-xl font-cormorant border-2 border-black">Subscribe to our emails</Label>
+  <div className="p-2 flex flex-col items-center">
+  <Label className=" text-xl font-cormorant">Subscribe to our emails</Label>
       <form className='flex items-center'>
         <div className="flex items-center">
           <div className="flex flex-col justify-between items-center">

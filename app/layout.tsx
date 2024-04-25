@@ -4,8 +4,7 @@ import Announcement from "@/components/Announcement";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Cormorant } from "next/font/google";
-import CartProvider from "@/components/Providers";
-import ShoppingCartModal from "@/components/ShoppingCartModal";
+import { Separator } from "@/components/ui/separator";
 
 const cormorant = Cormorant({
   subsets: ["latin"],
@@ -26,13 +25,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CartProvider>
-            <Announcement />
-            <Navbar />
-            {children}
-            <ShoppingCartModal/>
-            <Footer />
-          </CartProvider>
+          
+          {children}
+          
         </ThemeProvider>
       </body>
     </html>

@@ -35,10 +35,13 @@ import {
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 import { Icons } from "./icons";
-import { useShoppingCart } from "use-shopping-cart";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
+
 
 const Navbar: React.FC = () => {
-  const { handleCartClick } = useShoppingCart();
+
+  const {openCart} = useShoppingCart();
+  
   const menuList = [
     {
       group: "Shop",
@@ -73,6 +76,7 @@ const Navbar: React.FC = () => {
   ];
 
   return (
+    
     <header className="flex sticky top-0 bg-background z-10 shadow-sm justify-center">
       <NavigationMenu className="flex">
         <Drawer direction={"left"}>
@@ -125,7 +129,7 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
           <NavigationMenuLink
-            onClick={() => handleCartClick()}
+            // onClick={() => handleCartClick()}
             className={navigationMenuTriggerStyle()}
           >
             <Icons.shoppingbag />

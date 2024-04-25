@@ -1,14 +1,12 @@
-'use client'
+"use client";
 
-import axios from "axios";
-import { simplifiedProduct } from "@/app/interface";
-import { Label } from "@/components/ui/label"
+import { fullProduct } from "@/app/interface";
+import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import Link from "next/link";
 
-
 export default function Newest({ data }) {
-console.log("NEWEST", data)
+  console.log("NEWEST", data);
 
   return (
     <div className="flex flex-col font-cormorant">
@@ -17,11 +15,11 @@ console.log("NEWEST", data)
       </div>
 
       <div className="flex">
-        {data.map((data) => (
+        {data.map((data: fullProduct) => (
           <div key={data.id} className="flex flex-col items-center">
             <div className="bg-gray">
               <Image
-                src={`https://placehold.co/300`}
+                src={data.imageURL}
                 alt="product image"
                 width={300}
                 height={300}

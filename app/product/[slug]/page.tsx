@@ -1,23 +1,20 @@
-import { fullProduct } from "@/app/interface";
-
 import AddToBag from "@/components/AddToBag";
-import ImageGallery from "@/components/ImageGallery";
+import ImageGalleryNew from "@/components/ImageGalleryNew";
 import { Button } from "@/components/ui/button";
 import { Truck } from "lucide-react";
+import axios from "axios";
+import { fullProduct } from "@/app/interface";
 
-async function getData(slug: string) {
-  // const query = `*[_type == 'product' && slug.current == "siesta-tshirt-cedar-brown"][0]{
-  //   _id,
-  //     images,
-  //     price,
-  //     name,
-  //     description,
-  //     "slug": slug.current,
-  //     "categoryName": category->name,
-  // }`;
-  // const data = await client.fetch(query);
-
-  // return data;
+export async function getData(slug: string) {
+  try {
+    const response = await axios.get(
+      `http://localhost:3002/product?slug=${slug}`
+    );
+    return response;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
 }
 
 export default async function ProductPage({
@@ -25,12 +22,14 @@ export default async function ProductPage({
 }: {
   params: { slug: string };
 }) {
-  // const data: fullProduct = await getData(params.slug);
+  const res = await getData(params.slug);
+  const data: fullProduct = res?.data[0];
+  console.log(data);
   return (
     <div className="bg-red">
       <div className="mx-auto max-w-screen-xl px-4 md:px-8">
         <div className="grid gap-8 md:grid-cols-2">
-          <ImageGallery images={data.images} />
+          <ImageGalleryNew imageUrl={data.imageURL} />
           <div className="md:py-8">
             <div className="mb-2 md:mb-3">
               <span className="mb-05 inline-block text-gray-500">
@@ -62,12 +61,13 @@ export default async function ProductPage({
             </div>
             <div className="flex gap-2.5">
               <AddToBag
-                currency="INR"
+                
                 description={data.description}
-                image={data.images[0]}
+                imageURL={data.imageURL}
                 name={data.name}
                 price={data.price}
-                key={data._id}
+                key={data.id}
+                id={data.id}
               />
               <Button variant={"secondary"}>Checkout Now</Button>
             </div>
