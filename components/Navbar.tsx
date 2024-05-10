@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import React from "react";
+import { SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 import {
   Drawer,
@@ -37,25 +39,23 @@ import {
 import { Icons } from "./icons";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
-
 const Navbar: React.FC = () => {
+  const { toggleCart } = useShoppingCart();
 
-  const {openCart} = useShoppingCart();
-  
   const menuList = [
     {
       group: "Shop",
       items: [
         {
-          link: "/",
+          link: "/collections",
           text: "All products",
         },
         {
-          link: "/",
+          link: "/Tshirts",
           text: "Tshirt",
         },
         {
-          link: "/",
+          link: "/Hoodies",
           text: "Hoodies",
         },
       ],
@@ -76,7 +76,6 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    
     <header className="flex sticky top-0 bg-background z-10 shadow-sm justify-center">
       <NavigationMenu className="flex">
         <Drawer direction={"left"}>
@@ -88,11 +87,11 @@ const Navbar: React.FC = () => {
           <DrawerContent className="h-full w-[85%]">
             <DrawerHeader className="text-left">
               <DrawerTitle>
-                <DrawerTrigger asChild>
+                <SheetTrigger asChild>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     <Icons.cross />
                   </NavigationMenuLink>
-                </DrawerTrigger>
+                </SheetTrigger>
               </DrawerTitle>
             </DrawerHeader>
             <ScrollArea className="overflow-auto p-4 break-all">
@@ -101,7 +100,13 @@ const Navbar: React.FC = () => {
                   {menuList.map((menu: any, key: number) => (
                     <CommandGroup key={key} heading={menu.group}>
                       {menu.items.map((option: any, optionKey: number) => (
-                        <CommandItem key={optionKey}>{option.text}</CommandItem>
+                        <SheetTrigger asChild key={optionKey}>
+                          <Link href={option.link} key={optionKey} passHref>
+                            <CommandItem key={optionKey}>
+                              {option.text}
+                            </CommandItem>
+                          </Link>
+                        </SheetTrigger>
                       ))}
                     </CommandGroup>
                   ))}
@@ -129,7 +134,7 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
           <NavigationMenuLink
-            // onClick={() => handleCartClick()}
+            onClick={() => toggleCart(false)}
             className={navigationMenuTriggerStyle()}
           >
             <Icons.shoppingbag />

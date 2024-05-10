@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 interface MyComponentProps {
-  imageUrl: string;
+  imageUrl: string | undefined;
 }
 
 const ImageGalleryNew: React.FC<MyComponentProps> = ({ imageUrl }) => {

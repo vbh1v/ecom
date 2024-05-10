@@ -1,14 +1,9 @@
 "use client";
 
 import { useContext, createContext, ReactNode, useState } from "react";
-import {
-  ShoppingCartHook,
-  ShoppingCartState,
-  ShoppingCartActions,
-  fullProduct,
-} from "@/app/interface";
+import { fullProduct } from "@/app/interface";
 import ShoppingCartModal from "@/components/ShoppingCartModal";
-import axios from "axios";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -21,8 +16,7 @@ type CartItem = {
 };
 
 type ShoppingCartContext = {
-  openCart: () => void;
-  closeCart: () => void;
+  toggleCart: (v: boolean) => void;
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
@@ -30,6 +24,7 @@ type ShoppingCartContext = {
   cartQuantity: number;
   cartItems: CartItem[];
   data: fullProduct[];
+  isOpen: boolean;
 };
 
 export const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -42,16 +37,17 @@ export function ShoppingCartProvider({
   children,
   data,
 }: ShoppingCartProviderProps) {
-  const defaultCartItems: CartItem[] = [
-    { id: 1, quantity: 2 },
-    { id: 2, quantity: 1 },
-  ];
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>(defaultCartItems);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    "shopping-cart",
+    []
+  )
 
-  const openCart = () => setIsOpen(true);
-  const closeCart = () => setIsOpen(false);
+  const [isOpen, setOpen] = useState<boolean>(false);
+
+  const toggleCart = (v: boolean) => {
+    setOpen(!isOpen);
+  };
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -106,9 +102,9 @@ export function ShoppingCartProvider({
         removeFromCart,
         cartItems,
         cartQuantity,
-        openCart,
-        closeCart,
+        toggleCart,
         data,
+        isOpen,
       }}
     >
       {children}

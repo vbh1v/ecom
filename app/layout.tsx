@@ -1,9 +1,14 @@
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import Announcement from "@/components/Announcement";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import { Cormorant } from "next/font/google";
+
+import { ShoppingCartProvider } from "@/contexts/ShoppingCartContext";
+import axios from "axios";
+import { fullProduct } from "./interface";
+import Navbar from "@/components/Navbar";
+import Announcement from "@/components/Announcement";
+import Footer from "@/components/Footer";
 import { Separator } from "@/components/ui/separator";
 
 const cormorant = Cormorant({
@@ -11,11 +16,26 @@ const cormorant = Cormorant({
   variable: "--font-cormorant", // <--------- 👈
 });
 
-export default function RootLayout({
+export async function getData(): Promise<fullProduct[]> {
+  // Annotate return type as Promise<Product[]>
+  try {
+    const response = await axios.get<fullProduct[]>(
+      "http://localhost:3002/product"
+    ); // Specify generic type parameter
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return []; // Return empty array as fallback
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const data = await getData();
+
   return (
     <html lang="en">
       <body className={`${cormorant.variable}`}>
@@ -25,9 +45,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          
-          {children}
-          
+          <ShoppingCartProvider data={data}>
+            <Announcement />
+            <Navbar />
+            {children}
+            <Separator />
+            <Footer />
+          </ShoppingCartProvider>
         </ThemeProvider>
       </body>
     </html>
