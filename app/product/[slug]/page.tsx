@@ -1,5 +1,4 @@
 "use client";
-import AddToBag from "@/components/AddToBag";
 import ImageGalleryNew from "@/components/ImageGalleryNew";
 import { Button } from "@/components/ui/button";
 import { Truck } from "lucide-react";
@@ -7,6 +6,7 @@ import axios from "axios";
 import { fullProduct } from "@/app/interface";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { useState, useEffect } from "react";
+
 
 export async function getData(slug: string) {
   try {

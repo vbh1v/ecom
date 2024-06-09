@@ -3,11 +3,12 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  await prisma.user.create({
-    data: {
-     email: "lol@gmail.com",
-     name: "lol"
-    }
+  await prisma.category.createMany({
+    data: [
+      {name: "Tshirt"},
+      {name: "Hoodies"}
+    ]
+     
   })
 }
 

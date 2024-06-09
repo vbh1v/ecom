@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var auth_1 = require("@/backend/controllers/auth");
+var error_handler_1 = require("@/backend/error-handler");
+var auth_2 = require("@/backend/middlewares/auth");
+var express_1 = require("express");
+var authRoutes = express_1.Router();
+authRoutes.post("/signup", error_handler_1.errorHandler(auth_1.signup));
+authRoutes.post("/login", error_handler_1.errorHandler(auth_1.login));
+authRoutes.get("/me", [auth_2["default"]], error_handler_1.errorHandler(auth_1.me));
+exports["default"] = authRoutes;
