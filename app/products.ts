@@ -9,12 +9,12 @@ export const createProduct = async(req:Request, res:Response) => {
     const product = await prisma.product.create({
         data: {
             
-                "id": 1,
-                "name": "Siesta T-shirt Cedar Brown",
+                
+                "name": "Cool Blue Tshirt",
                 "price": 2000,
-                "description": "Description of Siesta T-shirt Cedar Brown",
+                "description": "Description of cool blue tshirt.",
                 "categoryId": 1,
-                "slug": "siesta-t-shirt-cedar-brown",
+                "slug": "cool-blue-tshirt",
                 "imageURL": "https://res.cloudinary.com/dexibw60d/image/upload/v1713088195/cedar-brown-2_kawsqh.jpg"
               
 

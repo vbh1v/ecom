@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,24 +48,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.createProduct = void 0;
-var client_1 = require("@prisma/client");
-var prisma = new client_1.PrismaClient();
+var server_1 = require("./../server");
 exports.createProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var product;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, prisma.product.create({
-                    data: {
-                        "name": "Cool Blue Tshirt",
-                        "price": 2000,
-                        "description": "Description of cool blue tshirt.",
-                        "categoryId": 1,
-                        "slug": "cool-blue-tshirt",
-                        "imageURL": "https://res.cloudinary.com/dexibw60d/image/upload/v1713088195/cedar-brown-2_kawsqh.jpg"
-                    }
+            case 0: return [4 /*yield*/, server_1.prismaClient.product.create({
+                    data: __assign({}, req.body)
                 })];
             case 1:
                 product = _a.sent();
+                res.json(product);
                 return [2 /*return*/];
         }
     });

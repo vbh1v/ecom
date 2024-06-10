@@ -36,26 +36,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.createProduct = void 0;
-var client_1 = require("@prisma/client");
-var prisma = new client_1.PrismaClient();
-exports.createProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var product;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, prisma.product.create({
-                    data: {
-                        "name": "Cool Blue Tshirt",
-                        "price": 2000,
-                        "description": "Description of cool blue tshirt.",
-                        "categoryId": 1,
-                        "slug": "cool-blue-tshirt",
-                        "imageURL": "https://res.cloudinary.com/dexibw60d/image/upload/v1713088195/cedar-brown-2_kawsqh.jpg"
-                    }
-                })];
-            case 1:
-                product = _a.sent();
-                return [2 /*return*/];
-        }
+var server_1 = require("./server");
+function main() {
+    return __awaiter(this, void 0, void 0, function () {
+        var product;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, server_1.prismaClient.product.create({
+                        data: {
+                            name: "Cool Blue Tshirt",
+                            price: 2000,
+                            description: "Description of cool blue tshirt.",
+                            categoryId: 1,
+                            slug: "cool-blue-tshirt",
+                            imageURL: "https://res.cloudinary.com/dexibw60d/image/upload/v1713088195/cedar-brown-2_kawsqh.jpg"
+                        }
+                    })];
+                case 1:
+                    product = _a.sent();
+                    return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
+main();
