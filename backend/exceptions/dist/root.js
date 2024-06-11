@@ -36,4 +36,5 @@ var ErrorCode;
     ErrorCode[ErrorCode["UNPROCESSABLE_ENTITY"] = 2001] = "UNPROCESSABLE_ENTITY";
     ErrorCode[ErrorCode["INTERNAL_EXCEPTION"] = 3001] = "INTERNAL_EXCEPTION";
     ErrorCode[ErrorCode["UNAUTHORISED"] = 4001] = "UNAUTHORISED";
+    ErrorCode[ErrorCode["PRODUCT_NOT_FOUND"] = 5001] = "PRODUCT_NOT_FOUND";
 })(ErrorCode = exports.ErrorCode || (exports.ErrorCode = {}));

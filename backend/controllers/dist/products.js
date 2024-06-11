@@ -47,7 +47,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.createProduct = void 0;
+exports.getProductById = exports.listProduct = exports.deleteProduct = exports.updateProduct = exports.createProduct = void 0;
+var not_found_1 = require("../exceptions/not-found");
+var root_1 = require("../exceptions/root");
 var server_1 = require("./../server");
 exports.createProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var product;
@@ -63,3 +65,58 @@ exports.createProduct = function (req, res) { return __awaiter(void 0, void 0, v
         }
     });
 }); };
+exports.updateProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var product, updateProduct_1, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                product = req.body;
+                return [4 /*yield*/, server_1.prismaClient.product.update({
+                        where: {
+                            id: +req.params.id
+                        },
+                        data: product
+                    })];
+            case 1:
+                updateProduct_1 = _a.sent();
+                console.log("Here is the updated product ------->", updateProduct_1);
+                res.json(updateProduct_1);
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                throw new not_found_1.NotFoundException("Product not found.", root_1.ErrorCode.PRODUCT_NOT_FOUND);
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var product, deleteProduct_1, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                product = req.body;
+                return [4 /*yield*/, server_1.prismaClient.product["delete"]({
+                        where: {
+                            id: +req.params.id
+                        }
+                    })];
+            case 1:
+                deleteProduct_1 = _a.sent();
+                console.log("Here is the deleted product ------->", deleteProduct_1);
+                res.json(deleteProduct_1);
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                throw new not_found_1.NotFoundException("Product not found.", root_1.ErrorCode.PRODUCT_NOT_FOUND);
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.listProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+    return [2 /*return*/];
+}); }); };
+exports.getProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+    return [2 /*return*/];
+}); }); };

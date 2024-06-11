@@ -7,4 +7,8 @@ var auth_1 = require("@/backend/middlewares/auth");
 var express_1 = require("express");
 var productRoutes = express_1.Router();
 productRoutes.post('/', [auth_1["default"], admin_1["default"]], error_handler_1.errorHandler(products_1.createProduct));
+productRoutes.put('/:id', [auth_1["default"], admin_1["default"]], error_handler_1.errorHandler(products_1.updateProduct));
+productRoutes["delete"]('/:id', [auth_1["default"], admin_1["default"]], error_handler_1.errorHandler(products_1.deleteProduct));
+productRoutes.get('/', [auth_1["default"], admin_1["default"]], error_handler_1.errorHandler(products_1.listProduct));
+productRoutes.get('/:id', [auth_1["default"], admin_1["default"]], error_handler_1.errorHandler(products_1.getProductById));
 exports["default"] = productRoutes;
