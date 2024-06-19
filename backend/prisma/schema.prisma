@@ -17,7 +17,7 @@ model User {
   role Role @default(USER)
   defaultShippingAddress Int?
   defaultBillingAddress Int?
-  orders Order[]
+  cartItems   CartItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   addresses Address[]
@@ -46,17 +46,22 @@ model Product {
   name String
   description String
   category    Category @relation(fields: [categoryId], references: [id])
-  orders      Order[]  @relation("OrderProduct")
+  cartItems   CartItem[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
-model Order {
+model CartItem {
   id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  productId Int
+  product  Product @relation(fields: [productId], references: [id])
   quantity Int
-  products  Product[] @relation("OrderProduct")
-  owner User @relation(fields: [ownerId], references: [id])
-  ownerId Int
+  createdAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+
 }
 
 model Category {
