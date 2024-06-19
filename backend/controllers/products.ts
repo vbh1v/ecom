@@ -53,6 +53,31 @@ export const deleteProduct = async (req: Request, res: Response) => {
       }
 };
 
-export const listProduct = async (req: Request, res: Response) => {};
+export const listProduct = async (req: Request, res: Response) => {
+    const count = prismaClient.product.count()
+    const products = await prismaClient.product.findMany({
+        skip: +req.query.skip || 0,
+        take: 5
+    })
+    res.json({
+        count, data:products
+    })
+};
 
-export const getProductById = async (req: Request, res: Response) => {};
+export const getProductById = async (req: Request, res: Response) => {
+    try {
+        const product = await prismaClient.product.findFirstOrThrow({
+          where: {
+            id: +req.params.id,
+          },
+        });
+    
+        console.log("Here is the asked product ------->", product);
+        res.json(product);
+      } catch (err) {
+        throw new NotFoundException(
+          "Product not found.",
+          ErrorCode.PRODUCT_NOT_FOUND
+        );
+      }
+};

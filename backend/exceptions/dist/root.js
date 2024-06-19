@@ -33,6 +33,8 @@ var ErrorCode;
     ErrorCode[ErrorCode["USER_NOT_FOUND"] = 1001] = "USER_NOT_FOUND";
     ErrorCode[ErrorCode["USER_ALREADY_EXISTS"] = 1002] = "USER_ALREADY_EXISTS";
     ErrorCode[ErrorCode["INCORRECT_PASSWORD"] = 1003] = "INCORRECT_PASSWORD";
+    ErrorCode[ErrorCode["ADDRESS_NOT_FOUND"] = 1004] = "ADDRESS_NOT_FOUND";
+    ErrorCode[ErrorCode["ADDRESS_DOES_NOT_MATCH"] = 1005] = "ADDRESS_DOES_NOT_MATCH";
     ErrorCode[ErrorCode["UNPROCESSABLE_ENTITY"] = 2001] = "UNPROCESSABLE_ENTITY";
     ErrorCode[ErrorCode["INTERNAL_EXCEPTION"] = 3001] = "INTERNAL_EXCEPTION";
     ErrorCode[ErrorCode["UNAUTHORISED"] = 4001] = "UNAUTHORISED";

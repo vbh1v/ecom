@@ -1,0 +1,12 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var error_handler_1 = require("@/backend/error-handler");
+var auth_1 = require("@/backend/middlewares/auth");
+var users_1 = require("@/backend/controllers/users");
+var usersRoutes = express_1.Router();
+usersRoutes.post("/address", [auth_1["default"]], error_handler_1.errorHandler(users_1.addAddress));
+usersRoutes["delete"]("/address/:id", [auth_1["default"]], error_handler_1.errorHandler(users_1.deleteAddress));
+usersRoutes.get("address", [auth_1["default"]], error_handler_1.errorHandler(users_1.listAddress));
+usersRoutes.put("/", [auth_1["default"]], error_handler_1.errorHandler(users_1.updateUser));
+exports["default"] = usersRoutes;

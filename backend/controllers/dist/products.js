@@ -114,9 +114,46 @@ exports.deleteProduct = function (req, res) { return __awaiter(void 0, void 0, v
         }
     });
 }); };
-exports.listProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
-exports.getProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
+exports.listProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var count, products;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                count = server_1.prismaClient.product.count();
+                return [4 /*yield*/, server_1.prismaClient.product.findMany({
+                        skip: +req.query.skip || 0,
+                        take: 5
+                    })];
+            case 1:
+                products = _a.sent();
+                res.json({
+                    count: count,
+                    data: products
+                });
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.getProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var product, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, server_1.prismaClient.product.findFirstOrThrow({
+                        where: {
+                            id: +req.params.id
+                        }
+                    })];
+            case 1:
+                product = _a.sent();
+                console.log("Here is the asked product ------->", product);
+                res.json(product);
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                throw new not_found_1.NotFoundException("Product not found.", root_1.ErrorCode.PRODUCT_NOT_FOUND);
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
