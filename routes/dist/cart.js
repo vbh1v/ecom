@@ -1,0 +1,12 @@
+"use strict";
+exports.__esModule = true;
+var cart_1 = require("@/backend/controllers/cart");
+var error_handler_1 = require("@/backend/error-handler");
+var auth_1 = require("@/backend/middlewares/auth");
+var express_1 = require("express");
+var cartRoutes = express_1.Router();
+cartRoutes.post("/", [auth_1["default"]], error_handler_1.errorHandler(cart_1.addItemToCart));
+cartRoutes.get("/", [auth_1["default"]], error_handler_1.errorHandler(cart_1.getCart));
+cartRoutes["delete"]("/:id", [auth_1["default"]], error_handler_1.errorHandler(cart_1.deleteItemFromCart));
+cartRoutes.put("/:id", [auth_1["default"]], error_handler_1.errorHandler(cart_1.changeQuantity));
+exports["default"] = cartRoutes;
