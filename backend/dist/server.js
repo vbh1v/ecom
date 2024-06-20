@@ -14,6 +14,23 @@ app.use(express_1["default"].json());
 app.use('/api', routes_1["default"]);
 exports.prismaClient = new client_1.PrismaClient({
     log: ['query']
+}).$extends({
+    result: {
+        address: {
+            formattedAddress: {
+                needs: {
+                    lineOne: true,
+                    lineTwo: true,
+                    city: true,
+                    country: true,
+                    pincode: true
+                },
+                compute: function (addr) {
+                    return addr.lineOne + ", " + addr.lineTwo + ", " + addr.city + ", " + addr.country + "-" + addr.pincode;
+                }
+            }
+        }
+    }
 });
 app.use(errors_1.errorMiddleware);
 app.listen(secrets_1.PORT, function () {
