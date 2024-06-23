@@ -39,4 +39,5 @@ var ErrorCode;
     ErrorCode[ErrorCode["INTERNAL_EXCEPTION"] = 3001] = "INTERNAL_EXCEPTION";
     ErrorCode[ErrorCode["UNAUTHORISED"] = 4001] = "UNAUTHORISED";
     ErrorCode[ErrorCode["PRODUCT_NOT_FOUND"] = 5001] = "PRODUCT_NOT_FOUND";
+    ErrorCode[ErrorCode["ORDER_NOT_FOUND"] = 6001] = "ORDER_NOT_FOUND";
 })(ErrorCode = exports.ErrorCode || (exports.ErrorCode = {}));

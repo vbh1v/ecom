@@ -1,4 +1,4 @@
-import { createOrder } from "@/backend/controllers/orders";
+import { cancelOrder, createOrder, getOrderById, listOrder } from "@/backend/controllers/orders";
 import { errorHandler } from "@/backend/error-handler";
 import adminMiddleware from "@/backend/middlewares/admin";
 import authMiddleware from "@/backend/middlewares/auth";
@@ -9,9 +9,8 @@ const orderRoutes: Router = Router()
 
 
 orderRoutes.post('/', [authMiddleware, adminMiddleware], errorHandler(createOrder))
-// orderRoutes.put('/:id', [authMiddleware, adminMiddleware], errorHandler(updateProduct))
-// orderRoutes.delete('/:id', [authMiddleware, adminMiddleware], errorHandler(deleteProduct))
-// orderRoutes.get('/', [authMiddleware, adminMiddleware], errorHandler(listProduct))
-// orderRoutes.get('/:id', [authMiddleware, adminMiddleware], errorHandler(getProductById))
+orderRoutes.put('/:id/cancel', [authMiddleware, adminMiddleware], errorHandler(cancelOrder))
+orderRoutes.get('/', [authMiddleware, adminMiddleware], errorHandler(listOrder))
+orderRoutes.get('/:id', [authMiddleware, adminMiddleware], errorHandler(getOrderById))
 
 export default orderRoutes

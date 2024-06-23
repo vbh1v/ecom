@@ -38,6 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.getOrderById = exports.cancelOrder = exports.listOrder = exports.createOrder = void 0;
 var server_1 = require("../server");
+var not_found_1 = require("../exceptions/not-found");
+var root_1 = require("../exceptions/root");
 exports.createOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -59,7 +61,7 @@ exports.createOrder = function (req, res) { return __awaiter(void 0, void 0, voi
                                     return [2 /*return*/, res.json({ message: "cart is empty" })];
                                 }
                                 price = cartItems.reduce(function (prev, current) {
-                                    return prev + (current.quantity * +current.product.price);
+                                    return prev + current.quantity * +current.product.price;
                                 }, 0);
                                 return [4 /*yield*/, tx.address.findFirst({
                                         where: {
@@ -107,12 +109,78 @@ exports.createOrder = function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
-exports.listOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
-exports.cancelOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
-exports.getOrderById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/];
-}); }); };
+exports.listOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, server_1.prismaClient.order.findMany({
+                    where: {
+                        userId: req.user.id
+                    }
+                })];
+            case 1:
+                order = _a.sent();
+                res.json(order);
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.cancelOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, server_1.prismaClient.order.update({
+                        where: {
+                            id: +req.params.id
+                        },
+                        data: {
+                            status: "CANCELLED"
+                        }
+                    })];
+            case 1:
+                order = _a.sent();
+                return [4 /*yield*/, server_1.prismaClient.orderEvent.create({
+                        data: {
+                            orderId: order.id,
+                            status: "CANCELLED"
+                        }
+                    })];
+            case 2:
+                _a.sent();
+                res.json(order);
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                throw new not_found_1.NotFoundException('Order not found!', root_1.ErrorCode.ORDER_NOT_FOUND);
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getOrderById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, server_1.prismaClient.order.findFirstOrThrow({
+                        where: {
+                            id: +req.params.id
+                        },
+                        include: {
+                            products: true,
+                            events: true
+                        }
+                    })];
+            case 1:
+                order = _a.sent();
+                res.json(order);
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                throw new not_found_1.NotFoundException("Order not found!", root_1.ErrorCode.ORDER_NOT_FOUND);
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
