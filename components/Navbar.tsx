@@ -127,7 +127,7 @@ const Navbar: React.FC = () => {
             </NavigationMenuLink>
           </Link>
           <div className="hidden md:flex">
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/login" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 <Icons.person />
               </NavigationMenuLink>

@@ -36,7 +36,10 @@ export default async function RootLayout({
 }>) {
   const data = await getData();
 
+
   return (
+
+    
     <html lang="en">
       <body className={`${cormorant.variable}`}>
         <ThemeProvider
@@ -46,11 +49,10 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <ShoppingCartProvider data={data}>
-            <Announcement />
-            <Navbar />
+            
             {children}
-            <Separator />
-            <Footer />
+            
+            
           </ShoppingCartProvider>
         </ThemeProvider>
       </body>

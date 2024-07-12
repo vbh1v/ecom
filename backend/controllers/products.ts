@@ -81,3 +81,50 @@ export const getProductById = async (req: Request, res: Response) => {
         );
       }
 };
+
+export const getProductByCategory = async (req: Request, res: Response) => {
+  console.log("THIS IS IT ---------->", req.query.category)
+  try {
+      const product = await prismaClient.category.findMany({
+        where: {
+          name: req.query.category
+        },
+        select: {
+          products: true,
+        }
+      });
+  
+      
+      res.json(product[0].products);
+    } catch (err) {
+      
+      throw new NotFoundException(
+        "Product not found.",
+        ErrorCode.PRODUCT_NOT_FOUND
+      );
+    }
+};
+
+export const getProductBySlug = async (req: Request, res: Response) => {
+  
+  try {
+      console.log("THIS IS IT ---------->", req.query.slug)
+      const product = await prismaClient.product.findFirstOrThrow({
+        where: {
+          slug: req.query.slug
+        },
+      });
+  
+      console.log("Here is the asked product ------->", product);
+      res.json(product);
+    } catch (err) {
+      throw new NotFoundException(
+        "Product not found.",
+        ErrorCode.PRODUCT_NOT_FOUND
+      );
+    }
+};
+
+//http://localhost:3002/product?category=${category}
+//http://localhost:3002/product?slug=${slug}
+
