@@ -14,27 +14,27 @@ import { Router } from "express";
 
 const productRoutes: Router = Router();
 
-
-productRoutes.get(
-    "/",
-    [authMiddleware, adminMiddleware],
-    errorHandler(getProductByCategory)
-  );
-productRoutes.get(
-  "/",
-  [authMiddleware, adminMiddleware],
-  errorHandler(getProductBySlug)
-);
-productRoutes.get(
-  "/",
-  [authMiddleware, adminMiddleware],
-  errorHandler(listProduct)
-);
-
 productRoutes.get(
   "/:id",
-  [authMiddleware, adminMiddleware],
+  [authMiddleware],
   errorHandler(getProductById)
+);
+
+productRoutes.get(
+  "/",
+  errorHandler(getProductBySlug)
+);
+
+productRoutes.get(
+  "/",
+  [authMiddleware],
+  errorHandler(getProductByCategory)
+);
+
+productRoutes.get(
+  "/",
+  [authMiddleware],
+  errorHandler(listProduct)
 );
 
 productRoutes.post(
@@ -42,16 +42,17 @@ productRoutes.post(
   [authMiddleware, adminMiddleware],
   errorHandler(createProduct)
 );
+
 productRoutes.put(
   "/:id",
   [authMiddleware, adminMiddleware],
   errorHandler(updateProduct)
 );
+
 productRoutes.delete(
   "/:id",
   [authMiddleware, adminMiddleware],
   errorHandler(deleteProduct)
 );
-
 
 export default productRoutes;

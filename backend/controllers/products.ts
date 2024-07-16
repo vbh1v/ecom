@@ -108,10 +108,17 @@ export const getProductByCategory = async (req: Request, res: Response) => {
 export const getProductBySlug = async (req: Request, res: Response) => {
   
   try {
-      console.log("THIS IS IT ---------->", req.query.slug)
-      const product = await prismaClient.product.findFirstOrThrow({
+      const slug = req.query.slug as string;
+
+      if (!slug) {
+        return res.status(400).json({ error: "Slug is required." });
+      }
+
+      console.log("THIS IS IT ---------->", slug);
+
+      const product = await prismaClient.product.findUnique({
         where: {
-          slug: req.query.slug
+          slug: slug
         },
       });
   

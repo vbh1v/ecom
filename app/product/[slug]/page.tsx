@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 export async function getData(slug: string) {
   try {
     const response = await axios.get(
-      `http://localhost:3002/product?slug=${slug}`
+      `http://localhost:3007/api/products?slug=${slug}`
     );
     return response;
   } catch (error) {
@@ -22,6 +22,7 @@ export async function getData(slug: string) {
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
   const [data, setData] = useState<fullProduct | null>(null);
+  console.log(data)
   const [isLoading, setIsLoading] = useState(true);
 
   const {
@@ -36,8 +37,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   useEffect(() => {
     (async () => {
       const response = await getData(params.slug);
-      const result = response?.data[0] ?? null; // Extract data from the response
+      const result = response?.data ?? null; // Extract data from the response
       setData(result);
+      console.log(result)
       setIsLoading(false);
 
       console.log({ data: response?.data, slug: params.slug });
