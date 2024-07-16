@@ -14,10 +14,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Mail } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
-import { signIn } from "@/app/auth";
-import { AuthError } from "next-auth";
+import { signIn } from "next-auth/react";
 
-const LoginPage: React.FC = () => {
+
+const LoginPage = () => {
   const signUp = async (formData: FormData) => {
     "use server";
     const name = formData.get("name") as string | undefined;
@@ -63,15 +63,6 @@ const LoginPage: React.FC = () => {
       });
     } catch (error) {
       // this is what seems to be returning the error message "CallbackRouteError"
-      console.log("ghoda", error);
-      if (error instanceof AuthError) {
-        switch (error.type) {
-          case "CallbackRouteError" || "CredentialsSignin":
-            return { error: "Your email and/or password are incorrect." };
-          default:
-            return { error: "Something went wrong!" };
-        }
-      }
       throw error;
     }
   };

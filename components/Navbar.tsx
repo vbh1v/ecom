@@ -16,6 +16,12 @@ import {
 } from "@/components/ui/drawer";
 
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import {
   Command,
   CommandGroup,
   CommandItem,
@@ -38,6 +44,23 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Icons } from "./icons";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
+import { signIn, signOut, useSession } from "next-auth/react";
+
+const AuthButton: React.FC = () => {
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <>
+        <Button onClick={() => signOut()}>Sign Out</Button>
+      </>
+    );
+  }
+  return (
+    <>
+      <Button variant="ghost" className="hidden md:flex" onClick={() => signIn()}>Sign in</Button>
+    </>
+  );
+};
 
 const Navbar: React.FC = () => {
   const { toggleCart } = useShoppingCart();
@@ -127,11 +150,11 @@ const Navbar: React.FC = () => {
             </NavigationMenuLink>
           </Link>
           <div className="hidden md:flex">
-            <Link href="/login" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <Popover>
                 <Icons.person />
-              </NavigationMenuLink>
-            </Link>
+              </Popover>
+            </NavigationMenuLink>
           </div>
           <NavigationMenuLink
             onClick={() => toggleCart(false)}
@@ -139,6 +162,7 @@ const Navbar: React.FC = () => {
           >
             <Icons.shoppingbag />
           </NavigationMenuLink>
+          <AuthButton />
         </NavigationMenu>
       </div>
     </header>

@@ -1,3 +1,4 @@
+
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -6,10 +7,9 @@ import { Cormorant } from "next/font/google";
 import { ShoppingCartProvider } from "@/contexts/ShoppingCartContext";
 import axios from "axios";
 import { fullProduct } from "./interface";
-import Navbar from "@/components/Navbar";
-import Announcement from "@/components/Announcement";
-import Footer from "@/components/Footer";
-import { Separator } from "@/components/ui/separator";
+import SessionProvider  from "@/components/SessionProvider"
+import { getServerSession } from "next-auth";
+
 
 const cormorant = Cormorant({
   subsets: ["latin"],
@@ -35,12 +35,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const data = await getData();
+  const session = await getServerSession()
+  console.log(session)
 
 
   return (
 
     
     <html lang="en">
+
       <body className={`${cormorant.variable}`}>
         <ThemeProvider
           attribute="class"
@@ -48,12 +51,14 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SessionProvider>
           <ShoppingCartProvider data={data}>
             
             {children}
             
             
           </ShoppingCartProvider>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
