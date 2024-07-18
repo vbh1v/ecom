@@ -5,7 +5,7 @@ import axios from "axios";
 
 export async function getData() {
   try {
-    const response = await axios.get("http://localhost:3002/product");
+    const response = await axios.get("http://localhost:3007/api/products/?skip=4");
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);

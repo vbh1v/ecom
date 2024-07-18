@@ -33,6 +33,7 @@ export default function CategoryPage({
 
   useEffect(() => {
     (async () => {
+      console.log("use effect called")
       const response = await getData(params.category);
       const result = response?.data ?? null; // Extract data from the response
       setData(result);
@@ -47,7 +48,7 @@ export default function CategoryPage({
   }
 
   return (
-    <div className="bg-red">
+    <div className="bg-red border-black">
       <div className="mx-auto max-w-screen-xl px-4 md:px-8">
         <div className="flex">
           {data?.map((data) => (

@@ -22,14 +22,15 @@ productRoutes.get(
 
 productRoutes.get(
   "/",
-  errorHandler(getProductBySlug)
+  errorHandler(getProductByCategory)
 );
 
 productRoutes.get(
   "/",
-  [authMiddleware],
-  errorHandler(getProductByCategory)
+  errorHandler(getProductBySlug)
 );
+
+
 
 productRoutes.get(
   "/",
